@@ -1,0 +1,31 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true"
+  *ngIf="tasks.length>0 && !isLoading">
+  <mat-expansion-panel *ngFor="let task of tasks">
+    <mat-expansion-panel-header>
+      {{task.title}}
+    </mat-expansion-panel-header>
+    <p>{{task.description}}</p>
+    <p>{{task.dueDate}}</p>
+    <p>{{task.priority}}</p>
+    <p>{{task.status}}</p>
+    <p>{{task.creator}}</p>
+    <mat-action-row *ngIf="userIsAuthenticated && userId===task.creator">
+      <button mat-button
+        color="primary"
+        [routerLink]="['/editTask', task.id]">EDIT</button>
+      <button mat-button
+        color="warn"
+        (click)="onTaskDelete(task.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<!-- <mat-paginator [length]="totaltasks"
+  [pageSize]="tasksPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)"
+  *ngIf="tasks.length>0"></mat-paginator> -->
+<div class="no-task"
+  *ngIf="tasks.length<=0">
+  No tasks added yet...
+</div>

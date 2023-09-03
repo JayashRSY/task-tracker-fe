@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <span>Task Tracker</span>
+  <span>
+    <button mat-button
+      routerLink="/tasks"
+      routerLinkActive="mat-accent">All Tasks</button>
+    <button *ngIf="userIsAuthenticated"
+      mat-button
+      routerLink="/createPost"
+      routerLinkActive="mat-accent">
+      New Task</button>
+  </span>
+  <span>
+    <button *ngIf="!userIsAuthenticated"
+      mat-button
+      routerLink="/user/login"
+      routerLinkActive="mat-accent">Login</button>
+    <button *ngIf="!userIsAuthenticated"
+      mat-button
+      routerLink="/user/signup"
+      routerLinkActive="mat-accent">Signup</button>
+    <button *ngIf="userIsAuthenticated"
+      mat-button
+      (click)="onLogout()">Logout</button>
+  </span>
+</mat-toolbar>
