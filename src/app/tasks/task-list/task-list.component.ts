@@ -32,24 +32,19 @@ export class TaskListComponent implements OnInit {
     this._taskService.getTasks();
     this.userId = this._authService.getUserId();
     this.tasksSub = this._taskService
-      .getTaskUpdateListener()
+      .getTasks()
       .subscribe((taskData: any) => {
-        this.tasks = taskData.tasks;
-        console.log("🚀 ~ file: task-list.component.ts:38 ~ TaskListComponent ~ .subscribe ~ taskData.tasks:", taskData.tasks);
+        this.tasks = taskData;
       });
     this.isLoading = false;
     this.userIsAuthenticated = this._authService.getIsAuth();
 
   }
-  onTaskEdit(id: string): void {
-    this._taskService.getTask(id);
-  }
-
   onTaskDelete(id: string): void {
     this.isLoading = true;
     this._taskService.deleteTask(id).subscribe(
       () => {
-        this._taskService.getTasks();
+        this._taskService.getTasks().subscribe;
       },
       () => {
         this.isLoading = false;

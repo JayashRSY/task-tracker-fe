@@ -10,45 +10,19 @@ import { map } from 'rxjs/operators';
 })
 export class TaskService {
   private tasks: ITask[] = [];
-  private taskUpdated = new Subject<{ tasks: ITask[]; taskCount: number }>();
+  private taskUpdated = new Subject<any>();
   url = environment.apiUrl;
 
   constructor(private http: HttpClient, private routers: Router) { }
 
-  getTaskUpdateListener() {
-    return this.taskUpdated.asObservable();
-  }
+  // getTaskUpdateListener() {
+  //   return this.taskUpdated.asObservable();
+  // }
 
   getTasks() {
-    this.http
-      .get<{ message: string; tasks: any; maxTasks: number }>(
-        `${this.url}getTasks`
-      )
-      .pipe(
-        map((taskData: any) => {
-          return {
-            tasks: taskData.tasks.map((task: any) => {
-              return {
-                id: task._id,
-                title: task.title,
-                description: task.description,
-                priority: task.priority,
-                status: task.status,
-                creator: task.creator,
-              };
-            }),
-            maxTasks: taskData.maxTasks,
-          };
-        })
-      )
-      .subscribe((transformedTaskData) => {
-        this.tasks = transformedTaskData.tasks;
-        this.taskUpdated.next({
-          tasks: [...this.tasks],
-          taskCount: transformedTaskData.maxTasks,
-        });
-      });
-    return [...this.tasks];
+    return this.http
+      .get(`${this.url}getTasks`)
+
   }
   getTask(id: string) {
     return this.http.get<{

@@ -70,6 +70,7 @@ export class TaskCreateComponent {
         this.btnText = 'Save Task';
         this.node = 'editTask';
         this.taskId = String(paramMap.get('taskId'));
+        console.log("🚀 ~ file: task-create.component.ts:73 ~ TaskCreateComponent ~ this.route.paramMap.subscribe ~ this.taskId:", this.taskId);
         this.isLoading = true;
         this._taskService.getTask(this.taskId).subscribe((taskData) => {
           this.editingTask = {

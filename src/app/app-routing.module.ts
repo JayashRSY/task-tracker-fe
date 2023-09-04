@@ -9,6 +9,7 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: TaskListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'createTask',
