@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
-  <span>Task Tracker</span>
+  <span>Z Blog</span>
   <span>
     <button mat-button
       routerLink="/tasks"
       routerLinkActive="mat-accent">All Tasks</button>
     <button *ngIf="userIsAuthenticated"
       mat-button
-      routerLink="/createPost"
+      routerLink="/createTask"
       routerLinkActive="mat-accent">
       New Task</button>
   </span>

@@ -13,7 +13,7 @@ export class TaskService {
   private taskUpdated = new Subject<{ tasks: ITask[]; taskCount: number }>();
   url = environment.apiUrl;
 
-  constructor(private http: HttpClient, private routers: Router) {}
+  constructor(private http: HttpClient, private routers: Router) { }
 
   getTaskUpdateListener() {
     return this.taskUpdated.asObservable();
@@ -29,10 +29,11 @@ export class TaskService {
           return {
             tasks: taskData.tasks.map((task: any) => {
               return {
-                title: task.title,
-                content: task.content,
                 id: task._id,
-                imagePath: task.imagePath,
+                title: task.title,
+                description: task.description,
+                priority: task.priority,
+                status: task.status,
                 creator: task.creator,
               };
             }),
@@ -51,47 +52,47 @@ export class TaskService {
   }
   getTask(id: string) {
     return this.http.get<{
-      _id: string;
-      title: string;
-      content: string;
-      imagePath: File;
-      creator: string;
+      _id: string,
+      title: string,
+      description: string,
+      dueDate: string,
+      priority: string,
+      status: string,
+      creator: string,
     }>(`${this.url}getTask/${id}`);
   }
-  addTask(title: string, content: string, image: File) {
-    const taskData = new FormData();
-    taskData.append('title', title);
-    taskData.append('content', content);
-    taskData.append('image', image, title);
+  addTask(title: string, description: string, dueDate: string, priority: string, status: string) {
+    let payload = {
+      title,
+      description,
+      dueDate,
+      priority,
+      status,
+      creator: null,
+    }
     this.http
-      .post<{ message: string; task: ITask }>(`${this.url}addTask`, taskData)
+      .post<{ message: string; task: ITask }>(`${this.url}addTask`, payload)
       .subscribe((res) => {
-        this.routers.navigate(['/']);
+        this.routers.navigate(['/tasks']);
       });
   }
-
   deleteTask(id: string) {
     return this.http.delete(`${this.url}deleteTask/${id}`);
   }
-  // updateTask(id: string, title: string,) {
-  //   let taskData: ITask | FormData;
-  //   if (typeof image === 'object') {
-  //     taskData = new FormData();
-  //     taskData.append('id', id);
-  //     taskData.append('title', title);
-  //     taskData.append('content', content);
-  //     taskData.append('image', image, title);
-  //   } else {
-  //     taskData = {
-  //       id: id,
-  //       title: title,
-  //       creator: null,
-  //     };
-  //   }
-  //   this.http
-  //     .put(`${this.url}updateTask/${id}`, taskData)
-  //     .subscribe((response) => {
-  //       this.routers.navigate(['/']);
-  //     });
-  // }
+  updateTask(id: string, title: string, description: string, dueDate: string, priority: string, status: string) {
+    let payload = {
+      id,
+      title,
+      description,
+      dueDate,
+      priority,
+      status,
+      creator: null,
+    }
+    this.http
+      .put(`${this.url}updateTask/${id}`, payload)
+      .subscribe((response) => {
+        this.routers.navigate(['/tasks']);
+      });
+  }
 }

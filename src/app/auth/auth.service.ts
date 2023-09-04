@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { environment } from './../../environments/environment';
+
 import { IAuthData } from './auth-data.interface';
+import { environment } from './../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   url = environment.apiUrl;
-  private token: string | null = null;
-  userId: string | null = null;
+  private token!: string;
+  userId!: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated: boolean = false;
   private tokenTimer: any;
@@ -78,11 +79,11 @@ export class AuthService {
       );
   }
   logoutUser() {
-    this.token = null;
+    this.token = '';
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
-    this.userId = null;
+    this.userId = '';
     this.clearAuthData();
     this.router.navigate(['/']);
   }
@@ -97,7 +98,9 @@ export class AuthService {
     if (expiresIn > 0) {
       this.token = authInfo.token;
       this.isAuthenticated = true;
-      this.userId = authInfo.userId;
+      if (authInfo.userId !== null) {
+        this.userId = authInfo.userId;
+      }
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
     }

@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ErrorComponent } from './error/error.component';
 
 const moduleList = [
   MatInputModule,
@@ -32,5 +33,8 @@ const moduleList = [
 @NgModule({
   imports: moduleList,
   exports: moduleList,
+  declarations: [
+    ErrorComponent
+  ],
 })
 export class AngularMaterialModule { }

@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   private authListenerSubs: Subscription
 
   constructor(private _authService: AuthService) {
+    this.userIsAuthenticated = this._authService.getIsAuth()
     this.authListenerSubs = this._authService
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
@@ -20,7 +21,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userIsAuthenticated = this._authService.getIsAuth()
   }
   onLogout() {
     this._authService.logoutUser()
