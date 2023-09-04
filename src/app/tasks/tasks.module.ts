@@ -5,7 +5,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { AngularMaterialModule } from '../shared/angular-material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [TaskCreateComponent, TaskListComponent],
@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularMaterialModule,
     NgbModule,
   ],
   exports: [TaskCreateComponent, TaskListComponent],

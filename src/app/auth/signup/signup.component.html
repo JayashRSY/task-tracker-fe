@@ -1,37 +1,5 @@
-<div *ngIf="isLoading" class="text-center">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div>
 
-<div class="card">
-  <div class="card-body">
-    <form (ngSubmit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" ngModel required>
-        <div *ngIf="signupForm.controls.email.invalid" class="text-danger">Please enter a valid email.</div>
-      </div>
-
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" ngModel required>
-        <div *ngIf="signupForm.controls.password.invalid" class="text-danger">Please enter a valid password.</div>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Signup</button>
-    </form>
-
-    <div *ngIf="isLoading" class="text-center mt-3">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- <mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-card>
     <form (submit)="onSignup(signupForm)"
         #signupForm="ngForm"
@@ -63,4 +31,4 @@
         </button>
         <mat-spinner *ngIf="isLoading"></mat-spinner>
     </form>
-</mat-card> -->
+</mat-card>
