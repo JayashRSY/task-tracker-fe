@@ -70,7 +70,7 @@ export class AuthService {
               now.getTime() + tokenDuration * 1000
             );
             this.saveAuthData(this.token, expirationDate, this.userId);
-            this.router.navigate(['/']);
+            this.router.navigate(['/tasks']);
           }
         },
         (error) => {

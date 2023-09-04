@@ -44,7 +44,7 @@ export class TaskListComponent implements OnInit {
     this.isLoading = true;
     this._taskService.deleteTask(id).subscribe(
       () => {
-        this._taskService.getTasks().subscribe;
+        this.tasks = this.tasks.filter(obj => obj._id !== id);
       },
       () => {
         this.isLoading = false;

@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AngularMaterialModule } from './shared/angular-material.module';
 import { TasksModule } from './tasks/tasks.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -24,7 +23,6 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AngularMaterialModule,
     TasksModule
   ],
   providers: [
