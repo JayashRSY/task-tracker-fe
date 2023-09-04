@@ -16,3 +16,14 @@
 }
 
 /* Add additional custom styles as needed */
+  mat-card {
+    width: 20rem;
+    margin: 5rem auto;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  mat-spinner {
+    margin: auto;
+  }

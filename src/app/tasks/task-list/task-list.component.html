@@ -9,7 +9,9 @@
       <th>Action</th>
     </tr>
   </thead>
-  <div *ngIf="tasks.length<=0" class="text-center">Loading tasks...</div>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <div *ngIf="tasks.length<=0" class="text-center">No tasks...</div>
   <tbody>
     <tr *ngFor="let task of tasks">
       <td>{{ task.title }}</td>
