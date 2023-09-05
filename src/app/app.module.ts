@@ -11,6 +11,7 @@ import { AngularMaterialModule } from './shared/angular-material.module';
 import { TasksModule } from './tasks/tasks.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     HttpClientModule,
     AngularMaterialModule,
-    TasksModule
+    TasksModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
