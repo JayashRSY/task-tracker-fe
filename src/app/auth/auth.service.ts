@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 
 import { IAuthData } from './auth-data.interface';
 import { environment } from './../../environments/environment';
+import { LoadingService } from '../shared/loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated: boolean = false;
   private tokenTimer: any;
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private _loadingService: LoadingService) { }
 
   getToken() {
     return this.token;
@@ -32,21 +33,25 @@ export class AuthService {
   }
 
   signupUser(email: string, password: string) {
+    this._loadingService.show()
     const authData: IAuthData = {
       email: email,
       password: password,
     };
     this.http.post(`${this.url}user/signup`, authData).subscribe(
       () => {
+        this._loadingService.hide()
         this.router.navigate(['/']);
       },
       (error) => {
+        this._loadingService.hide()
         this.authStatusListener.next(false);
       }
     );
   }
 
   loginUser(email: string, password: string) {
+    this._loadingService.show()
     const authData: IAuthData = {
       email: email,
       password: password,
@@ -72,19 +77,25 @@ export class AuthService {
             this.saveAuthData(this.token, expirationDate, this.userId);
             this.router.navigate(['/tasks']);
           }
+          this._loadingService.hide()
         },
         (error) => {
+          this._loadingService.hide()
           this.authStatusListener.next(false);
         }
       );
   }
   logoutUser() {
+    this._loadingService.show()
+
     this.token = '';
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.userId = '';
     this.clearAuthData();
+    this._loadingService.hide()
+
     this.router.navigate(['/']);
   }
 
@@ -102,6 +113,8 @@ export class AuthService {
         this.userId = authInfo.userId;
       }
       this.setAuthTimer(expiresIn / 1000);
+      this._loadingService.hide()
+
       this.authStatusListener.next(true);
     }
   }

@@ -5,6 +5,7 @@ import { ITask } from '../task.interface';
 import { TaskService } from '../task.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { LoadingService } from 'src/app/shared/loading.service';
 
 @Component({
   selector: 'app-task-create',
@@ -24,13 +25,13 @@ export class TaskCreateComponent {
     status: '',
   };
   private taskId: string = '';
-  isLoading: boolean = false;
   private authStatusSubs: Subscription = new Subscription();
   constructor(
     private _taskService: TaskService,
     public route: ActivatedRoute,
     private _authService: AuthService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    public _loadingService: LoadingService
   ) {
     this.taskForm = this._formBuilder.group({
       title: ['', Validators.required],
@@ -45,7 +46,7 @@ export class TaskCreateComponent {
     this.authStatusSubs = this._authService
       .getAuthStatusListener()
       .subscribe((authStatus) => {
-        this.isLoading = false;
+        this._loadingService.hide()
       });
     this.taskForm = new FormGroup({
       title: new FormControl(null, {
@@ -67,11 +68,13 @@ export class TaskCreateComponent {
     });
     this.route.paramMap.subscribe((paramMap) => {
       if (paramMap.has('taskId')) {
+        this._loadingService.show()
+
         this.btnText = 'Save Task';
         this.node = 'editTask';
         this.taskId = String(paramMap.get('taskId'));
-        console.log("🚀 ~ file: task-create.component.ts:73 ~ TaskCreateComponent ~ this.route.paramMap.subscribe ~ this.taskId:", this.taskId);
-        this.isLoading = true;
+        this._loadingService.show()
+
         this._taskService.getTask(this.taskId).subscribe((taskData) => {
           this.editingTask = {
             id: taskData._id,
@@ -88,8 +91,11 @@ export class TaskCreateComponent {
             priority: this.editingTask.priority,
             status: this.editingTask.status,
           });
-          this.isLoading = false;
+          this._loadingService.hide()
+
         });
+
+
       } else {
         this.btnText = 'Create Task';
         this.node = 'createTask';
@@ -103,7 +109,7 @@ export class TaskCreateComponent {
       return;
     }
     if (this.node === 'createTask') {
-      this.isLoading = true;
+      this._loadingService.show()
       this._taskService.addTask(
         this.taskForm.value.title,
         this.taskForm.value.description,
@@ -111,9 +117,9 @@ export class TaskCreateComponent {
         this.taskForm.value.priority,
         this.taskForm.value.status,
       );
-      this.isLoading = false;
+      this._loadingService.hide()
     } else if (this.node === 'editTask') {
-      this.isLoading = true;
+      this._loadingService.show()
       this._taskService.updateTask(
         this.taskId,
         this.taskForm.value.title,
@@ -122,7 +128,7 @@ export class TaskCreateComponent {
         this.taskForm.value.priority,
         this.taskForm.value.status,
       );
-      this.isLoading = false;
+      this._loadingService.hide()
     }
     this.taskForm.reset();
   }

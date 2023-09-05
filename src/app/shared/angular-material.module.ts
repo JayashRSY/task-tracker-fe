@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ErrorComponent } from './error/error.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 const moduleList = [
   MatInputModule,
@@ -32,9 +33,10 @@ const moduleList = [
 
 @NgModule({
   imports: moduleList,
-  exports: moduleList,
+  exports: [moduleList, LoadingSpinnerComponent],
   declarations: [
-    ErrorComponent
+    ErrorComponent,
+    LoadingSpinnerComponent
   ],
 })
 export class AngularMaterialModule { }
