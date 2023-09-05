@@ -42,9 +42,9 @@
     <mat-label>Status</mat-label>
     <mat-select formControlName="status"
       required>
-      <mat-option value="New">New</mat-option>
-      <mat-option value="Active">Active</mat-option>
-      <mat-option value="Closed">Closed</mat-option>
+      <mat-option value="Completed">Completed</mat-option>
+      <mat-option value="In Progress">In Progress</mat-option>
+      <mat-option value="Not Started">Not Started</mat-option>
     </mat-select>
     <mat-error *ngIf="taskForm.get('status')!.invalid">Status is required</mat-error>
   </mat-form-field>

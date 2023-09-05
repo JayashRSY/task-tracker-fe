@@ -12,6 +12,11 @@ import { ITask } from '../task.interface';
 })
 export class TaskListComponent implements OnInit {
 
+  taskTitleFilter: string = '';
+  priorityFilter: string = '';
+  statusFilter: string = '';
+  filteredTasks: ITask[] =[];
+
   tasks: ITask[] = [];
   isLoading: boolean = false;
   private tasksSub: Subscription = new Subscription();
@@ -35,10 +40,29 @@ export class TaskListComponent implements OnInit {
       .getTasks()
       .subscribe((taskData: any) => {
         this.tasks = taskData;
+        this.filteredTasks = this.tasks;
       });
     this.isLoading = false;
     this.userIsAuthenticated = this._authService.getIsAuth();
 
+  }
+  filterTasks() {
+    // Apply your filter logic here using the filter variables
+    this.filteredTasks = this.tasks.filter(task => {
+      const titleMatch = task.title.toLowerCase().includes(this.taskTitleFilter.toLowerCase());
+      const priorityMatch = this.priorityFilter === '' || task.priority === this.priorityFilter;
+      const statusMatch = this.statusFilter === '' || task.status === this.statusFilter;
+
+      return titleMatch && priorityMatch && statusMatch;
+    });
+  }
+
+  // Function to reset filters
+  resetFilters() {
+    this.taskTitleFilter = '';
+    this.priorityFilter = '';
+    this.statusFilter = '';
+    this.filterTasks(); // Call filter function to update the displayed tasks
   }
   onTaskDelete(id: string): void {
     this.isLoading = true;

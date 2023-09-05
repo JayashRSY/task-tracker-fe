@@ -1,3 +1,26 @@
+<!-- Filter and Search Bar -->
+<div>
+  <input type="text"
+    [(ngModel)]="taskTitleFilter"
+    placeholder="Task Title"
+    (keyup)="filterTasks()">
+  <select [(ngModel)]="priorityFilter">
+    <option value="">Priority</option>
+    <option value="High">High</option>
+    <option value="Medium">Medium</option>
+    <option value="Low">Low</option>
+  </select>
+  <select [(ngModel)]="statusFilter">
+    <option value="">Status</option>
+    <option value="Completed">Completed</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Not Started">Not Started</option>
+  </select>
+  <button (click)="filterTasks()">Filter</button>
+  <button (click)="resetFilters()">Reset</button>
+</div>
+
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -9,11 +32,12 @@
       <th>Action</th>
     </tr>
   </thead>
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-  <div *ngIf="tasks.length<=0" class="text-center">No tasks...</div>
+  <div *ngIf="tasks.length<=0"
+    class="text-center">No tasks...</div>
   <tbody>
-    <tr *ngFor="let task of tasks">
+    <tr *ngFor="let task of filteredTasks">
       <td>{{ task.title }}</td>
       <td>{{ task.description }}</td>
       <td>{{ task.dueDate | date }}</td>
@@ -29,7 +53,6 @@
     </tr>
   </tbody>
 </table>
-
 <!-- <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion multi="true"
   *ngIf="tasks.length>0 && !isLoading">
