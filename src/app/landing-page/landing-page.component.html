@@ -1,0 +1,61 @@
+<div class="container mt-5">
+  <header class="text-center">
+    <h1>Welcome to Task Tracker</h1>
+    <p class="lead">Organize your tasks and boost productivity.</p>
+  </header>
+
+  <section class="row justify-content-center mt-5">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body text-center">
+          <mat-icon color="primary">check_circle</mat-icon>
+          <h2 class="card-title">Task Management</h2>
+          <p class="card-text">Create, update, and complete tasks with ease.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body text-center">
+          <mat-icon color="primary">event</mat-icon>
+          <h2 class="card-title">Deadline Tracking</h2>
+          <p class="card-text">Never miss an important deadline again.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body text-center">
+          <mat-icon color="primary">people</mat-icon>
+          <h2 class="card-title">Collaboration</h2>
+          <p class="card-text">Collaborate with your team on tasks and projects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="!userIsAuthenticated"
+    class="text-center">
+    <button mat-raised-button
+      color="primary"
+      class="mx-2"
+      routerLink="/user/login">Log In</button>
+    <button mat-raised-button
+      color="accent"
+      class="mx-2"
+      routerLink="/user/signup">Sign Up</button>
+  </section>
+  <section *ngIf="userIsAuthenticated"
+    class="text-center">
+    <button mat-raised-button
+      color="primary"
+      class="mx-2"
+      routerLink="/tasks">All Tasks</button>
+    <button mat-raised-button
+      color="accent"
+      class="mx-2"
+      routerLink="/createTask">New Task</button>
+  </section>
+</div>

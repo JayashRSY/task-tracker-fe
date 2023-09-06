@@ -3,6 +3,9 @@
   margin-bottom: 1rem;
 
   mat-toolbar {
-      justify-content: space-between;
+    justify-content: space-between;
+  }
+  .nav-title {
+    cursor: pointer;
   }
 }

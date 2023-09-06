@@ -4,8 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskCreateComponent } from './tasks/task-create/task-create.component';
 import { AuthGuard } from './auth/auth.guard';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: LandingPageComponent,
+  },
   {
     path: 'tasks',
     component: TaskListComponent,

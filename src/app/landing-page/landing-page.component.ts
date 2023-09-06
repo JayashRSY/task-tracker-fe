@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-landing-page',
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.scss']
 })
-export class HeaderComponent {
+export class LandingPageComponent {
+
   userIsAuthenticated: boolean = false;
   private authListenerSubs: Subscription
 
@@ -18,10 +19,6 @@ export class HeaderComponent {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
-  }
-
-  onLogout() {
-    this._authService.logoutUser()
   }
   ngOnDestroy(): void {
     this.authListenerSubs.unsubscribe();

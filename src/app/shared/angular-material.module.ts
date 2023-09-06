@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ErrorComponent } from './error/error.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { MatIconModule } from '@angular/material/icon';
 
 const moduleList = [
   MatInputModule,
@@ -29,6 +30,7 @@ const moduleList = [
   MatDatepickerModule,
   MatSelectModule,
   MatButtonModule,
+  MatIconModule
 ];
 
 @NgModule({

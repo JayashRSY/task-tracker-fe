@@ -12,10 +12,12 @@ import { TasksModule } from './tasks/tasks.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
